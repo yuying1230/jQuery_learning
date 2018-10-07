@@ -23,11 +23,12 @@ CSS DOM
 |val(value)|设置表单中文本内容|
 
 
-**注意：1. text()方法会自动清理或转义HTML标签。  
+**注意：**  
+**1. text()方法会自动清理或转义HTML标签。  
 $('#box').html(); 结果是<strong>www.lovestory.com</strong>;  
 $('#box').text(); 结果是www.lovestory.com  
 $('#box').text('<em>www.baidu.com</em>'); 结果是<em>www.baidu.com</em>；  
-$('#box').html('<em>www.baidu.com</em>'); 结果是www.baidu.com；
+$('#box').html('<em>www.baidu.com</em>'); 结果是www.baidu.com；  
 2. html()和text()设置元素内容时，会清空原来的数据。如果要追加内容的话，需要先获取原来的数据:$('#box').html('$('#box').html() + <em>www.baidu.com</em>');，此处获取两次jQuery对象，性能不高，可以改为：$('#box').html(function(index, value) { return value + <em>www.baidu.com</em>; })。  
 3. 如果想设置多个选项的选定状态，比如下拉列表、单选复选框等，可以通过数组传递操作：$('input').val(['a', 'b']);**
 
@@ -85,7 +86,7 @@ for(var i in box) {
   alert(i + ':' + box[i]);
 }  
 ```
-jQuery对象的遍历工具：  
+jQuery对象的遍历工具：  
 1.
 ```
 $.each(box, function(attr, value) {
