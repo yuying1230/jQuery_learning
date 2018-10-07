@@ -29,7 +29,7 @@ $('#box').text(); 结果是www.lovestory.com
 $('#box').text('<em>www.baidu.com</em>'); 结果是<em>www.baidu.com</em>；  
 $('#box').html('<em>www.baidu.com</em>'); 结果是www.baidu.com；
 2. html()和text()设置元素内容时，会清空原来的数据。如果要追加内容的话，需要先获取原来的数据:$('#box').html('$('#box').html() + <em>www.baidu.com</em>');，此处获取两次jQuery对象，性能不高，可以改为：$('#box').html(function(index, value) { return value + <em>www.baidu.com</em>; })。  
-3. 如果想设置多个选项的选定状态，比如下拉列表、单选复选框等，可以通过数组传递操作：$('input').val(['a', 'b']);**
+3. 如果想设置多个选项的选定状态，比如下拉列表、单选复选框等，可以通过数组传递操作：$('input').val(['a', 'b']);**
 
 ### 3. 元素属性操作
 
@@ -44,7 +44,7 @@ $('#box').html('<em>www.baidu.com</em>'); 结果是www.baidu.com；
 
 **注意：1. class不建议使用attr来设置.  
 2. attr()方法里的function可以不传参数，也可以只传一个参数index表示当前元素的索引（从0开始），也可以传两个参数index、value，value表示属性原本的值。  
-3. jQuery中很多方法都可以使用function来返回出字符串，如果涉及到多个元素集合的话，还可以传递index参数来获取索引值，第二个参数value并不是所有方法都适合。  
+3. jQuery中很多方法都可以使用function来返回出字符串，如果涉及到多个元素集合的话，还可以传递index参数来获取索引值，第二个参数value并不是所有方法都适合。  
 4. 不建议使用attr()来创建id属性。  
 5. 删除属性：removeAttr('title');该方法不适合使用function。**
 
@@ -78,12 +78,16 @@ $('div').attr('title', function(index) {
 |toggleClass(function(i, c, s){}, switch)|在匿名函数设置时传递三个参数|
 
 **行内设置说明：**
-1. css([name1, name2]);方法返回的是对象数组，需要使用for...in进行遍历才能解析(javascript方式)：  
+1. css([name1, name2]);方法返回的是对象数组，需要使用for...in进行遍历才能解析(javascript方式)：
+```
 var box = $('#box').css(['color', 'height', 'width']);  
 for(var i in box) {
   alert(i + ':' + box[i]);
 }  
+```
 jQuery对象的遍历工具：  
+1.
+```
 $.each(box, function(attr, value) {
   alert(attr + ':' + value);
 })  
@@ -91,27 +95,41 @@ or
 $('#box').each(function(attr, value) {
   alert(attr + ':' + value);
 })
-2. $('#box').css('color', 'red').css('background-color', '#ccc');   
+```
+2.
+```
+$('#box').css('color', 'red').css('background-color', '#ccc');   
+```
 等价于  
+```
 $('#box').css({'color': 'red', 'background-color': '#ccc'});
-3. $('#box').css('width', function(index, value){
+```
+3.
+```$('#box').css('width', function(index, value){
   return parseInt(value) - 500 + 'px';
 })
+```
 
 **添加CSS类规则说明：**  
 1. $('#box').addClass('class-style1 class-style2');  
 $('#box').removeClass('class-style1 class-style2');
 
 **样式切换说明：**  
-1. $('#box').click(function(){
+1.
+```
+$('#box').click(function(){
     $(this).toggleClass('style1'); // 默认样式和指定样式两个样式之间的切换
-  });
-2. var count = 0;  
-  $('#box').click(function(){
-    $(this).toggleClass(function(index, className, switchBool) {
-      // index是索引，className是样式，switchBool是频率
-    }, count++ % 3 == 0);
-  });
+});
+```
+2.
+```
+var count = 0;  
+$('#box').click(function(){
+  $(this).toggleClass(function(index, className, switchBool) {
+    // index是索引，className是样式，switchBool是频率
+  }, count++ % 3 == 0);
+});
+```
 
 ### 5. jQuery方法
 1. width()方法
@@ -158,9 +176,3 @@ $('#box').removeClass('class-style1 class-style2');
 
 说明：
 1. offset()、position()获取的是对象，调用left或top可获取到对应的偏移量。
-
-
-
-
-
-### 附
